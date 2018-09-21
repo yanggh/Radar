@@ -11,6 +11,11 @@ private:
     std::string _bak;
 public:
     DataBlock();
+
+    std::string  get_eventCode();
+    std::string  get_validIdentity();
+    std::string  get_data();
+    
     friend ostream& operator<<(ostream& out, const DataBlock& datablock);
     size_t  DataBlockHandle(const char* message, const size_t pos);
 };
