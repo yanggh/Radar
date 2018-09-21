@@ -1,0 +1,35 @@
+{
+  "tests": 2,
+  "failures": 0,
+  "disabled": 0,
+  "errors": 0,
+  "timestamp": "2018-08-24T10:48:05Z",
+  "time": "0s",
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "demo\/TreeTest",
+      "tests": 2,
+      "failures": 0,
+      "disabled": 0,
+      "errors": 0,
+      "time": "0s",
+      "testsuite": [
+        {
+          "name": "DefaultConstructor\/0",
+          "value_param": "40-byte object <38-66 3A-01 00-00 00-00 78-65 3A-01 00-00 00-00 88-64 3A-01 00-00 00-00 08-66 3A-01 00-00 00-00 00-00 00-00 00-00 00-00>",
+          "status": "RUN",
+          "time": "0s",
+          "classname": "demo\/TreeTest"
+        },
+        {
+          "name": "DefaultConstructor\/1",
+          "value_param": "40-byte object <A8-65 3A-01 00-00 00-00 68-66 3A-01 00-00 00-00 98-66 3A-01 00-00 00-00 C8-66 3A-01 00-00 00-00 00-00 00-00 00-00 00-00>",
+          "status": "RUN",
+          "time": "0s",
+          "classname": "demo\/TreeTest"
+        }
+      ]
+    }
+  ]
+}
