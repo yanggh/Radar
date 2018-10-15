@@ -8,131 +8,59 @@
 using namespace std;
 class Arg{
 private:
-    string  _Sort;
-    string  _ArgLen;
-    string  _ArgType;
+    int  _Sort;
+    int  _ArgLen;
+    int  _ArgType;
 public:
-    void SetSort(const string& Sort)
-    {
-        _Sort = Sort;
-    }
-    void SetArgLen(const string& ArgLen)
-    {
-        _ArgLen = ArgLen;
-    }
-    void SetArgType(const string& ArgType)
-    {
-        _ArgType = ArgType;          
-    }
-    
-    string GetSort()
-    {
-        return _Sort;
-    } 
+    void SetSort(const int Sort);
+    void SetArgLen(const int ArgLen);
+    void SetArgType(const int ArgType);
 
-    string GetArgLen()
-    {
-        return _ArgLen;
-    } 
-
-    string GetArgType()
-    {
-        return _ArgType;
-    }
-
-    friend ostream& operator<<(ostream& out, const Arg& arg)
-    {
-        out << "Sort is: " << arg._Sort << endl; 
-        out << "ArgLen is: " << arg._ArgLen << endl; 
-        out << "ArgType is: " << arg._ArgType << endl; 
-    }
+    int  GetSort() const;
+    int  GetArgLen() const;
+    int  GetArgType() const;
+    friend ostream& operator<<(ostream& out, const Arg& arg);
 };
 
 class  DLL{
 private:
+    string  _EventCode;
     string  _Dll;
     string  _Fun;
-    vector<Arg> _VecArg;
 public:
-    void SetDll(const string& Dll)
-    {
-        _Dll = Dll;
-    }
+    vector<Arg> _VecArg;
+    void AddArg(const Arg& arg);
 
-    void SetFun(const string& Fun)
-    {
-        _Fun = Fun;
-    }
+    void SetDll(const string& Dll);
+    void SetFun(const string& Fun);
+    void SetEventCode(const string& EventCode);
 
-    void AddArg(const Arg& arg)
-    {
-        _VecArg.push_back(arg);
-    }
+    string GetDll() const;
+    string GetFun() const;
+    string GetEventCode() const;
 
-    string GetDll()
-    {
-        return _Dll;
-    }
-
-    string GetFun()
-    {
-        return _Fun;
-    }
-    
-    friend ostream& operator<<(ostream& out, const DLL& dll)
-    {
-        out << "Dll is : " << dll._Dll << endl;
-        out << "Fun is : " << dll._Fun << endl;
-
-        for(auto &val : dll._VecArg)
-            out << val << endl;
-
-        return out;
-    }
+    DLL& operator=(const DLL dll);
+    friend ostream& operator<<(ostream& out, const DLL& dll);
 };
 
 class XmlConf
 {
 private:
-    string _SegmentsIden;
-    string _ValidMessageIden;
-    vector<DLL> VecFunc;
+    uint32_t _SegmentsIden;
+    uint16_t _ValidMessageIden;
 public:
-    void SetSegmentsIden(const string& SegmentsIden)
-    {
-        _SegmentsIden = SegmentsIden;
-    }
-    
-    void SetValidMessageIden(const string& ValidMessageIden)
-    {
-        _ValidMessageIden = ValidMessageIden;
-    }
+    vector<DLL> VecFunc;
+    void AddDll(const DLL& dll);
 
-    void AddDll(const DLL& dll)
-    {
-        VecFunc.push_back(dll);
-    }
+    void SetSegmentsIden(const uint32_t SegmentsIden);
+    void SetValidMessageIden(const uint32_t ValidMessageIden);
 
-    string GetValidMessageIden()
-    {
-        return _ValidMessageIden;
-    }
+    uint32_t GetSegmentsIden() const;
+    uint16_t GetValidMessageIden() const;
 
-    string GetSegmentsIden()
-    {
-        return _SegmentsIden;
-    }
+    void SearchFun(DLL& dll, const string& EventCode);
 
-    friend ostream& operator<<(ostream& out, const XmlConf& xmlconf)
-    {
-        out << "SegmentsIden is : " << xmlconf._SegmentsIden << endl;
-        out << "ValidMessageIden is : " << xmlconf._ValidMessageIden << endl;
-
-        for(auto &val : xmlconf.VecFunc)
-            out << val << endl;
-
-        return out;
-    }
+    friend ostream& operator<<(ostream& out, const XmlConf& xmlconf);
 };
 
 bool LoadXml(const string  xmlfile,   XmlConf& xmlconf);

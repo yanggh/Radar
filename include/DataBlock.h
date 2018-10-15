@@ -6,15 +6,18 @@ using namespace std;
 class  DataBlock{
 private:
     std::string _eventCode;
-    std::string _validIdentity;
+    uint16_t    _validIdentity;
+    uint32_t    _data_len;
     std::string _data;
     std::string _bak;
 public:
     DataBlock();
 
-    std::string  get_eventCode();
-    std::string  get_validIdentity();
-    std::string  get_data();
+    std::string  GetEventCode();
+    uint16_t     GetValidIdentity();
+    uint32_t     GetDataLen();
+    std::string  GetData();
+    std::string  GetBak();
     
     friend ostream& operator<<(ostream& out, const DataBlock& datablock);
     size_t  DataBlockHandle(const char* message, const size_t pos);

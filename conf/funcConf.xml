@@ -358,7 +358,7 @@
           <RadarComponent_Fun_Id>54b968a470ea4b02915fd4ee51ca4081</RadarComponent_Fun_Id>
           <RadarId>PB01</RadarId>
           <RadarComponentId>a1fd30169984486c9c0983dcf6c892b4</RadarComponentId>
-          <EventCode>0000000000000000000000000000000000002211</EventCode>
+          <EventCode>sess4567890123456789</EventCode>
           <FunConfigurationId>97c71840014c41fe993f6c8dd875df92</FunConfigurationId>
           <FunConfigurationName>antenna-arraySim</FunConfigurationName>
           <EnvDataPath />
