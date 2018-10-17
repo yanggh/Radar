@@ -91,13 +91,18 @@ string  GetReply(const string&  payload, const DLL& dll)
 
             DLOPEN dlopen(dll.GetDll());
             FUNC  func = dlopen.search_func(dll.GetFun());
- 
-            int outlen = 0; 
+
+            //func处理
+            int outlen = 0;
             func(&outlen, (void*)outParameter.data(), inParameter[0].length(), (void*)inParameter[0].data(), inParameter[1].length(), (void*)inParameter[1].data(), inParameter[2].length(), (void*)inParameter[2].data(), inParameter[3].length(), (void*)inParameter[3].data(), inParameter[4].length(), (void*)inParameter[4].data());
 
-            cout << "func handle after: " << outlen << endl;
-            //func处理
-            uint32_t  len = outParameter.length() + 20 + 6;
+            //添加数据长度,数据长度
+            string ss;
+            ss.resize(4);
+            ss.assign((char*)&outlen, 4);
+            cout << "func handle after: " << outlen << ",ss = " << ss << endl;
+
+            outParameter = ss + outParameter;
         }
     }
 
@@ -109,9 +114,9 @@ void  ApiHandle(vector<string>& arrayReplys, const int blocks, const string& pay
 {
     int             block = 0;//模块个数
     size_t          pos = 0;
-    
+
     DataBlock  datablock;
-    
+
     //循环函数API处理,结束条件是数据块个数用完或者payload有效数据使用完
     cout << "循环函数API处理" << endl;
     do
@@ -129,7 +134,7 @@ void  ApiHandle(vector<string>& arrayReplys, const int blocks, const string& pay
         arrayReply += datablock.GetBak();
         arrayReplys.push_back(arrayReply);
 
-        block++; 
+        block++;
     }while((blocks > block) && (payload.length() > pos));
 }
 
@@ -163,18 +168,33 @@ void  PackageMods(vector<std::pair<int, string>>& replys, vector<string>&  array
 //发送处理模块
 //div当前分片数, val.first模块总数, val.second要发送的有效数据
 //TODO
-void Sendto(vector<std::pair<int, string>>& replys)
+void Sendto(const string&  head, vector<std::pair<int, string>>& replys)
 {
-    int  div = 0;
+    string msghead = head;
+    msghead.resize(head.size());
+
+    uint16_t div = 0;
+    int      slen = 0;
     for(auto& val : replys)
     {
-        //val.firsthead + val.second()
-        cout << "divs: " << replys.size() << endl;
+        //报文总长度
+        slen = head.size() + val.second.size();
+
+        //请求响应标识,1响应响应,0表示请求
+        msghead[29] = 1;
+
+        //分片标识: 0,不分片,1,分片
+        replys.size() > 1 ? msghead[31] = 1 : msghead[31] = 0;
+
+        //当前分片索引,索引号从0开始
         cout << "div: " << div << endl;
+
+        //数据块个数
         cout << "mods:" << val.first << endl;
-        cout << "data: " << val.second << endl;
+
+        //待发送数据，msghead + val.second
+        cout << "data: " << val.second;// << endl;
+
         div += 1;
-    } 
+    }
 }
-
-

@@ -10,12 +10,12 @@ int  main(int argc, char** argv)
 
     XmlConf          xmlconf;
     LoadXml(argv[1], xmlconf);
-
+    cout << xmlconf;
     //分片索引完成或者不分片数据标志
     bool        isAll = true;
 
     while(1)
-    {        
+    {
         //TODO
         //接收模块部分
 
@@ -61,7 +61,7 @@ int  main(int argc, char** argv)
 
                 //TODO
                 //发送处理模块
-                Sendto(replys);
+                Sendto(packhead.GetRaw(), replys);
             }
         }
         cout << "单次循环退出" << endl;

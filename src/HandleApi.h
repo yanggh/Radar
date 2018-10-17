@@ -24,5 +24,5 @@ void  PackageMods(vector<std::pair<int, string>>& replys, vector<string>&  array
 
 //发送模块
 //mod记录模块数量, reply记录每次模块发送数据
-void  Sendto(vector<std::pair<int, string>>& replys);
+void Sendto(const string&  head, vector<std::pair<int, string>>& replys);
 #endif
